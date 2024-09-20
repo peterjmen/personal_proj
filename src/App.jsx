@@ -1,5 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+
+const API_BASE_URL = "https://riddle-app.azurewebsites.net";
 
 const App = () => {
   const [yourAge, setYourAge] = useState("");
@@ -19,13 +21,14 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        `/api/Ridde-Of-The-Ages/${yourAge}/${theirAge}`
+        `${API_BASE_URL}/Ridde-Of-The-Ages/${yourAge}/${theirAge}`
       );
+      console.log("API Response:", response);
       setResult(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error details:", error.response || error);
       setError(
-        "An error occurred while fetching the riddle. Please try again."
+        "An error occurred while fetching the riddle. Please check the console for more details."
       );
     }
   };
